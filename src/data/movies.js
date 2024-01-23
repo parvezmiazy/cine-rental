@@ -46,7 +46,7 @@ const data = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, nisi non velit nihil excepturi quam dignissimos voluptates dolorem consequatur nesciunt facilis eligendi voluptas ipsam et modi ex doloribus quasi impedit",
     genre: "Comedy/Drama",
-    rating: 5,
+    rating: 4,
     price: 140,
   },
 ];
