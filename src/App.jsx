@@ -6,7 +6,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   return (
     <>
-      <ThemeContext.Provider value={darkMode}>
+      <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
         <MovieContext.Provider value={{ cartData, setCartData }}>
           <Page />
         </MovieContext.Provider>

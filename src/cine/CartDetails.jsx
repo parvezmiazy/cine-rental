@@ -8,10 +8,10 @@ export default function CartDetails({ onClose }) {
 
   function handleDeleteCart(event, movieId) {
     event.preventDefault();
-    let filteredItem;
-    filteredItem = cartData.filter((item) => {
+    const filteredItem = cartData.filter((item) => {
       return item.id !== movieId;
-    }, setCartData([...cartData, filteredItem]));
+    });
+    setCartData([...filteredItem]);
   }
   return (
     <div class="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
