@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import Tag from "../assets/tag.svg";
 import { MovieContext } from "../contexts";
 import { getImgUrl } from "../utils/cine-utility";
@@ -7,7 +8,7 @@ import Rating from "./Rating";
 export default function MovieCard({ movie, onCartAdd }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const { cartData, setCartData } = useContext(MovieContext);
+  const { state, dispatch } = useContext(MovieContext);
 
   function handleModalClose() {
     setSelectedMovie(null);
@@ -19,14 +20,25 @@ export default function MovieCard({ movie, onCartAdd }) {
   }
   function handleAddToCart(event, movie) {
     event.stopPropagation();
-    const found = cartData.find((item) => {
+    const found = state.cartData.find((item) => {
       return item.id === movie.id;
     });
     if (!found) {
-      setCartData([...cartData, movie]);
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: {
+          ...movie,
+        },
+      });
+      toast.success(`Movie ${movie.title} added successfully`, {
+        position: "bottom-right",
+      });
     } else {
-      console.error(
-        `The movie ${movie.title} has been added to the cart already!`
+      toast.error(
+        `The movie ${movie.title} has been added to the cart already!`,
+        {
+          position: "bottom-right",
+        }
       );
     }
   }
@@ -41,7 +53,7 @@ export default function MovieCard({ movie, onCartAdd }) {
         />
       )}
       <figure className="p-4 border border-black/10 shadow-sm dark:border-white/10 rounded-xl">
-        <a onClick={() => handleMovieSelection(movie)}>
+        <button onClick={() => handleMovieSelection(movie)}>
           <img
             className="w-full object-cover"
             src={getImgUrl(movie.cover)}
@@ -60,7 +72,7 @@ export default function MovieCard({ movie, onCartAdd }) {
               <span>{movie.price} | Add to Cart</span>
             </a>
           </figcaption>
-        </a>
+        </button>
       </figure>
     </>
   );
